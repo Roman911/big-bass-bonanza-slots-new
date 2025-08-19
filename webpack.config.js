@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { SourceMapDevToolPlugin, ProvidePlugin } = require("webpack")
+const { ProvidePlugin } = require("webpack");
 const path = require("path");
 const HtmlInlineScriptPlugin = require("html-inline-script-webpack-plugin");
 const HtmlInlineCSSWebpackPlugin = require("html-inline-css-webpack-plugin").default;
@@ -18,6 +18,7 @@ module.exports = {
 		filename: "[name].[contenthash].js",
 		assetModuleFilename: "assets/[name][ext][query]",
 		clean: true,
+		publicPath: "",
 	},
 	devtool: mode === "development" ? "source-map" : false,
 	optimization: {
@@ -30,12 +31,13 @@ module.exports = {
 		}),
 		new HtmlWebpackPlugin({
 			template: "./src/index.html",
+			inject: "body",
+			scriptLoading: "blocking",
+			chunks: "all", // важливо: включити ВСІ чанки у HTML
 		}),
-		// У dev залишимо мапи, у prod devtool=false -> не створюються окремі файли
-		// new SourceMapDevToolPlugin(), // якщо ввімкнути — з’являться додаткові файли
-		new ProvidePlugin({ PIXI: 'pixi.js' }),
-		new HtmlInlineScriptPlugin(), // інлайнить <script> у HTML
-		new HtmlInlineCSSWebpackPlugin({ leaveCSSFile: false }), // інлайнить CSS і видаляє .css файли
+		new ProvidePlugin({ PIXI: "pixi.js" }),
+		new HtmlInlineScriptPlugin(), // інлайнить усі <script> з HtmlWebpackPlugin
+		new HtmlInlineCSSWebpackPlugin({ leaveCSSFile: false }), // інлайнить CSS і видаляє файли
 	],
 	module: {
 		rules: [
@@ -76,7 +78,7 @@ module.exports = {
 			},
 			{
 				test: /\.(woff|woff2|eot|ttf|otf)$/i,
-				type: 'asset/inline',
+				type: "asset/inline",
 			},
 			{
 				test: /\.m?js$/,
