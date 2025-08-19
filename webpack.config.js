@@ -1,85 +1,59 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { ProvidePlugin } = require("webpack");
 const path = require("path");
-const HtmlInlineScriptPlugin = require("html-inline-script-webpack-plugin");
-const HtmlInlineCSSWebpackPlugin = require("html-inline-css-webpack-plugin").default;
+const HtmlBundlerPlugin = require("html-bundler-webpack-plugin");
 
 let mode = "production";
-
-if (process.env.NODE_ENV === "production") {
-	mode = "production";
-}
 console.log(mode + " mode");
 
 module.exports = {
 	mode: mode,
+	devtool: mode === "development" ? "inline-source-map" : false,
 	output: {
-		filename: "[name].[contenthash].js",
-		assetModuleFilename: "assets/[name][ext][query]",
+		path: path.resolve(__dirname, "dist"),
 		clean: true,
-		publicPath: "",
+		publicPath: ""
 	},
-	devtool: mode === "development" ? "source-map" : false,
 	optimization: {
 		splitChunks: false,
-		runtimeChunk: false,
+	},
+	resolve: {
+		alias: {
+			"@": path.resolve(__dirname, "src"),
+		},
 	},
 	plugins: [
-		new MiniCssExtractPlugin({
-			filename: "[name].[contenthash].css",
+		new HtmlBundlerPlugin({
+			entry: "src/",
+			js: {
+				inline: true,
+				// Додаємо налаштування для чанків
+				chunk: {
+					// Відключаємо створення окремого файлу для вендорів (бібліотек)
+					vendor: false,
+				},
+			},
+			css: {
+				inline: true,
+			},
 		}),
-		new HtmlWebpackPlugin({
-			template: "./src/index.html",
-			inject: "body",
-			scriptLoading: "blocking",
-			chunks: "all", // важливо: включити ВСІ чанки у HTML
-		}),
-		new ProvidePlugin({ PIXI: "pixi.js" }),
-		new HtmlInlineScriptPlugin(), // інлайнить усі <script> з HtmlWebpackPlugin
-		new HtmlInlineCSSWebpackPlugin({ leaveCSSFile: false }), // інлайнить CSS і видаляє файли
 	],
 	module: {
 		rules: [
+			// Правило для HTML, яке використовує лоадер самого плагіна
 			{
-				test: /\.html$/i,
-				loader: "html-loader",
+				test: /\.html$/,
+				loader: HtmlBundlerPlugin.loader,
 			},
+			// Правила для стилів з повним ланцюжком лоадерів
 			{
-				test: /\.(sa|sc|c)ss$/,
-				use: [
-					mode === "development" ? "style-loader" : MiniCssExtractPlugin.loader,
-					"css-loader",
-					{
-						loader: "postcss-loader",
-						options: {
-							postcssOptions: {
-								plugins: [
-									[
-										"postcss-preset-env",
-										{
-											// Options
-										},
-									],
-								],
-							},
-						},
-					},
-					"sass-loader",
-				],
+				test: /\.(s?css)$/,
+				use: ["css-loader", "postcss-loader", "sass-loader"],
 			},
+			// Правило для ресурсів (зображення, шрифти, звуки)
 			{
-				test: /\.(png|svg|jpe?g|gif)$/i,
+				test: /\.(png|svg|jpe?g|gif|ico|webp|woff|woff2|eot|ttf|otf|mp3|ogg|wav)$/i,
 				type: "asset/inline",
 			},
-			{
-				test: /\.(ogg|mp3|wav)$/i,
-				type: "asset/inline",
-			},
-			{
-				test: /\.(woff|woff2|eot|ttf|otf)$/i,
-				type: "asset/inline",
-			},
+			// Правило для JS
 			{
 				test: /\.m?js$/,
 				exclude: /node_modules/,
@@ -91,5 +65,11 @@ module.exports = {
 				},
 			},
 		],
+	},
+	// Налаштування для dev-сервера
+	devServer: {
+		static: path.resolve(__dirname, "dist"),
+		watchFiles: ["src/**/*.*"],
+		hot: true,
 	},
 };
