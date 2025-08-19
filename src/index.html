@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Slot Machine</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/src/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/src/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/src/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/src/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/src/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<h2 class="title">Spin and win!</h2>
+<div id="app">
+    <div class="winner">
+        <div class="win"></div>
+        <div class="win"></div>
+        <div class="win"></div>
+        <div class="win"></div>
+        <div class="win"></div>
+    </div>
+    <div class="text-win-wrap">
+        <img class="text-win" src="/src/images/text-win.png" alt="">
+        <img class="text-nice-one" src="/src/images/text-nice-one.png" alt="">
+    </div>
+</div>
+<div class="btn-wrapper">
+    <button class="btn_spin"></button>
+    <div class="hand content">
+        <img src="/src/images/hand.png" alt="">
+    </div>
+</div>
+<div class="modal_overlay"></div>
+<div class="modal modal_signup">
+    <div class="popup">
+        <div class="header">
+            <div class="title">
+                CONGRATULATIONS!
+            </div>
+        </div>
+        <div class="content">
+            <img src="/src/images/modal-banner.png" alt="">
+<!--            <div class="timer-wrap">-->
+<!--                <div class="timer-title">The bonus will <br>expire in:</div>-->
+<!--                <div class="timer" id="timer">05:00</div>-->
+<!--            </div>-->
+            <p class="description">Please, register to receive gift</p>
+<!--            <form class="form" action="">-->
+<!--                <div class="form-group required has-success">-->
+<!--                    <input type="email" id="email" class="form-control" name="email" maxlength="255" placeholder="Enter email" aria-required="true" aria-invalid="false">-->
+<!--                    <label class="control-label" for="email">Email</label>-->
+<!--                    <div class="help-block"></div>-->
+<!--                </div>-->
+<!--                <div class="form-group required has-success">-->
+<!--                    <input type="password" id="password" class="form-control" name="password" maxlength="32" placeholder="Password (6-32 characters)" aria-required="true" aria-invalid="false">-->
+<!--                    <label class="control-label" for="password">Password</label>-->
+<!--                    <div class="help-block"></div>-->
+<!--                </div>-->
+<!--                <div class="checkbox-description">-->
+<!--                    By registering on the website, you accept the terms and conditions. Please review the rules after logging in to the site.-->
+<!--                </div>-->
+            <div class="btn-wrapper">
+                <button>
+                    <img src="/src/images/btn-reg.png" alt="">
+                </button>
+                <div class="hand reg">
+                    <img src="/src/images/hand.png" alt="">
+                </div>
+            </div>
+<!--            </form>-->
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,133 @@
+$modalZIndex: 100;
+$headerHeight: 56px;
+
+.modal_overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  background: rgba(37, 37, 37, 0.85);
+  z-index: $modalZIndex;
+
+  &.show {
+    display: block;
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  overflow-y: auto;
+  z-index: $modalZIndex;
+  -webkit-overflow-scrolling: touch;
+  display: none;
+  animation: animatetop 0.5s ease;
+
+  &.show {
+    display: flex;
+  }
+
+  .popup {
+    position: relative;
+    width: 452px;
+    max-width: 100%;
+    margin: auto;
+    animation: appear 0.5s ease;
+    border-radius: 20px;
+
+    > .header {
+      border-radius: 20px 20px 0 0;
+      padding: 0 18px;
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: $headerHeight;
+      line-height: $headerHeight;
+      color: #ffffff;
+      background: linear-gradient(136deg, #3A90E9 0%, #266BC5 87.32%);
+
+      .title {
+        padding: 0;
+        font-size: 20px;
+        font-family: Rubik-Bold, sans-serif;
+        font-weight: 700;
+      }
+
+      .close {
+        cursor: pointer;
+        display: flex;
+        line-height: $headerHeight;
+        transition: 200ms;
+
+        &:hover,
+        &:focus,
+        &:active {
+          opacity: 0.8;
+        }
+      }
+    }
+
+    > .content {
+      min-height: 280px;
+      color: #262626;
+      background: #EFF5FE;
+      padding: 20px;
+      border-radius: 0 0 20px 20px;
+
+      img {
+        width: 100%;
+      }
+
+      .description {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-size: 16px;
+        font-weight: 500;
+        text-align: center;
+        font-family: Rubik-Medium, sans-serif;
+      }
+
+      .checkbox-description {
+        margin-top: 10px;
+        font-size: 12px;
+
+        a {
+          color: #193AB2;
+          text-decoration: underline;
+        }
+      }
+
+      button {
+        border: none;
+        background: none;
+        margin: 0 auto;
+        display: block;
+        cursor: pointer;
+        transition: 200ms;
+
+        &:hover {
+          filter: brightness(110%);
+        }
+      }
+    }
+  }
+}
+
+@keyframes animatetop {
+  from {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}

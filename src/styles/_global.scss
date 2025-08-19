@@ -1,0 +1,190 @@
+@import "src/variabels/colors";
+
+$shadow: rgb(185, 185, 185);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Rubik-Regular, Arial, Helvetica, sans-serif;
+}
+
+html {
+  font-family: Rubik-Regular, sans-serif;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  color: #262626;
+  padding: 10px;
+  background-color: #000000;
+  font-family: Rubik-Regular, sans-serif;
+  background-image: url("/src/images/bg_global.jpg");
+  overflow: hidden;
+
+  @media screen and (max-width: 768px) {
+    padding: 0;
+  }
+}
+
+#app {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 60px 154px 54px;
+  background-image: url("/src/images/slote-ramka.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  aspect-ratio: 2.2;
+
+  @media screen and (max-width: 900px) {
+    padding: 7% 9.5%;
+  }
+}
+
+canvas {
+  width: 100%;
+  position: relative;
+}
+
+h2.title {
+  margin-top: 60px;
+  margin-bottom: 30px;
+  color: #ffffff;
+  font-size: 42px;
+  text-align: center;
+  font-family: Rubik-Bold, sans-serif;
+  font-weight: 700;
+}
+
+.btn-wrapper {
+  text-align: center;
+  position: relative;
+}
+
+button.btn_spin {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 50px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  background-image: url("/src/images/btn_spin.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.winner {
+  position: absolute;
+  top: 47%;
+  left: 122px;
+  transform: translateY(-45%);
+  transition: 500ms;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: 76%;
+
+  .win {
+    width: 200px;
+    height: 200px;
+    animation: animatetopw 0.5s ease;
+    display: none;
+    background-image: url("/src/images/icon-win.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    &:not(:first-child) {
+      margin-left: -60px;
+    }
+
+    &.active {
+      display: block;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    padding: 0;
+    left: 7%;
+    right: 7%;
+    width: 86%;
+
+    .win {
+      width: 140%;
+      height: 80px;
+      margin-left: -18%;
+
+      &:not(:first-child) {
+        margin-left: -10px;
+      }
+    }
+  }
+}
+
+.text-win-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+}
+
+.text-win {
+  display: none;
+  width: 100%;
+  animation: animatetoptwt 1s ease;
+
+  &.active {
+    display: block;
+  }
+}
+
+.text-nice-one {
+  display: none;
+  width: 100%;
+  animation: animatetoptwt 1s ease;
+
+  &.active {
+    display: block;
+  }
+}
+
+@keyframes animatetopw {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.4);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes animatetoptwt {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+  75% {
+    opacity: 0.75;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
